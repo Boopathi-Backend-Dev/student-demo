@@ -83,15 +83,15 @@ DEBUG = os.getenv("DEBUG") == "True"
 # Local DB
 LOCAL_DB = {
     'ENGINE': 'django.db.backends.postgresql',
-    'NAME': os.getenv("DB_NAME"),
-    'USER': os.getenv("DB_USER"),
-    'PASSWORD': os.getenv("DB_PASSWORD"),
-    'HOST': os.getenv("DB_HOST"),
-    'PORT': os.getenv("DB_PORT"),
+    'NAME': "management",
+    'USER': "postgres",
+    'PASSWORD': "12314",
+    'HOST':"localhost",
+    'PORT':5432,
 }
 
 # Live Render DB
-DATABASE_URL = os.getenv("postgresql://student_management_jt77_user:uKKAIzuy4lRmU0gCEPeZzGJWnj24IeT9@dpg-d87fpu99rddc738ditv0-a.virginia-postgres.render.com/student_management_jt77")
+DATABASE_URL = "postgresql://student_management_jt77_user:uKKAIzuy4lRmU0gCEPeZzGJWnj24IeT9@dpg-d87fpu99rddc738ditv0-a.virginia-postgres.render.com/student_management_jt77"
 
 if DATABASE_URL:
     DATABASES = {

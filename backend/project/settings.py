@@ -54,18 +54,6 @@ TEMPLATES = [
 CORS_ALLOW_ALL_ORIGINS = True
 WSGI_APPLICATION = 'project.wsgi.application'
 
-# LOCAL POSTGRES DATABASE
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'management',
-        'USER': 'postgres',
-        'PASSWORD': '1234',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
-}
 
 AUTH_PASSWORD_VALIDATORS = []
 
@@ -80,3 +68,36 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+from pathlib import Path
+import os
+from dotenv import load_dotenv
+import dj_database_url
+
+load_dotenv()
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+DEBUG = os.getenv("DEBUG") == "True"
+
+# Local DB
+LOCAL_DB = {
+    'ENGINE': 'django.db.backends.postgresql',
+    'NAME': os.getenv("DB_NAME"),
+    'USER': os.getenv("DB_USER"),
+    'PASSWORD': os.getenv("DB_PASSWORD"),
+    'HOST': os.getenv("DB_HOST"),
+    'PORT': os.getenv("DB_PORT"),
+}
+
+# Live Render DB
+DATABASE_URL = os.getenv("postgresql://student_management_jt77_user:uKKAIzuy4lRmU0gCEPeZzGJWnj24IeT9@dpg-d87fpu99rddc738ditv0-a.virginia-postgres.render.com/student_management_jt77")
+
+if DATABASE_URL:
+    DATABASES = {
+        'default': dj_database_url.parse(DATABASE_URL)
+    }
+else:
+    DATABASES = {
+        'default': LOCAL_DB
+    }
